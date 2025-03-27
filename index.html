@@ -33,4 +33,70 @@
       max-width: 90%; 
       height: auto; 
       margin: 1rem 0;
-      border
+      border: 4px solid rgba(255, 255, 255, 0.5);
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+      animation: zoomIn 1s ease-in-out;
+    }
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background: linear-gradient(45deg, #ff6b6b, #ffbd69);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease-in-out;
+    }
+    button:hover {
+      transform: scale(1.1);
+      background: linear-gradient(45deg, #ffbd69, #ff6b6b);
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b; }
+      100% { text-shadow: 0 0 20px #ff6b6b, 0 0 30px #ff6b6b; }
+    }
+
+    @keyframes zoomIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 Rastgele Uzay Fotoğrafı 🌌</h1>
+  <h2 id="title"></h2>
+  <img id="spaceImage" src="" alt="Uzay Fotoğrafı">
+  <p id="description"></p>
+  <br>
+  <button id="newImageBtn">Yeni Görüntü Al</button>
+
+  <script>
+    const imgElement = document.getElementById('spaceImage');
+    const titleElement = document.getElementById('title');
+    const descElement = document.getElementById('description');
+    const btn = document.getElementById('newImageBtn');
+
+    function fetchSpaceImage() {
+      // NASA API'sini kullanarak fotoğraf alıyoruz
+      fetch('https://api.nasa.gov/planetary/apod?api_key=YOUR_NASA_API_KEY')
+        .then(response => response.json())
+        .then(data => {
+          titleElement.textContent = data.title;
+          imgElement.src = data.url;
+          descElement.textContent = data.explanation;
+        })
+        .catch(error => {
+          console.error('Hata:', error);
+          titleElement.textContent = "Fotoğraf Yüklenemedi";
+          descElement.textContent = "API'den veri alınırken hata oluştu.";
+        });
+    }
+
+    fetchSpaceImage();
+    btn.addEventListener('click', fetchSpaceImage);
+  </script>
+</body>
+</html>
