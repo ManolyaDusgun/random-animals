@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rastgele Hayvan Fotoğrafları</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      margin: 2rem;
+    }
+    img { 
+      max-width: 100%; 
+      height: auto; 
+      margin: 1rem 0;
+      border: 2px solid #ccc;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rastgele Hayvan Fotoğrafı</h1>
+  <img id="animalImage" src="" alt="Hayvan Fotoğrafı">
+  <br>
+  <button id="newImageBtn">Yeni Hayvan Göster</button>
+  
+  <script>
+    const imgElement = document.getElementById('animalImage');
+    const btn = document.getElementById('newImageBtn');
+
+    function fetchAnimal() {
+      fetch('http://shibe.online/api/shibes?count=1')
+        .then(response => response.json())
+        .then(data => {
+          imgElement.src = data[0];
+        })
+        .catch(error => {
+          console.error('Hata:', error);
+          imgElement.alt = "Fotoğraf yüklenemedi.";
+        });
+    }
+
+    fetchAnimal();
+    btn.addEventListener('click', fetchAnimal);
+  </script>
+</body>
+</html>
