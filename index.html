@@ -34,18 +34,11 @@
     const btn = document.getElementById('newImageBtn');
 
     function fetchAnimal() {
-      // HTTPS destekleyen API'leri karışık kullanarak rastgele seçim yapacağız
-      const apis = [
-        'https://api.thecatapi.com/v1/images/search',
-        'https://api.thedogapi.com/v1/images/search'
-      ];
-
-      const randomApi = apis[Math.floor(Math.random() * apis.length)];
-
-      fetch(randomApi)
+      // HTTPS destekleyen API'yi kullanıyoruz
+      fetch('https://shibe.online/api/shibes?count=1')
         .then(response => response.json())
         .then(data => {
-          imgElement.src = data[0].url;
+          imgElement.src = data[0];
         })
         .catch(error => {
           console.error('Hata:', error);
