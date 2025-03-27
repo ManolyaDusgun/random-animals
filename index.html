@@ -28,16 +28,24 @@
   <img id="animalImage" src="" alt="Hayvan Fotoğrafı">
   <br>
   <button id="newImageBtn">Yeni Hayvan Göster</button>
-  
+
   <script>
     const imgElement = document.getElementById('animalImage');
     const btn = document.getElementById('newImageBtn');
 
     function fetchAnimal() {
-      fetch('https://shibe.online/api/shibes?count=1')
+      // HTTPS destekleyen API'leri karışık kullanarak rastgele seçim yapacağız
+      const apis = [
+        'https://api.thecatapi.com/v1/images/search',
+        'https://api.thedogapi.com/v1/images/search'
+      ];
+
+      const randomApi = apis[Math.floor(Math.random() * apis.length)];
+
+      fetch(randomApi)
         .then(response => response.json())
         .then(data => {
-          imgElement.src = data[0];
+          imgElement.src = data[0].url;
         })
         .catch(error => {
           console.error('Hata:', error);
