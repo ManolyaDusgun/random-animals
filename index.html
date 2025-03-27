@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rastgele Hayvan Fotoğrafları</title>
+  <title>Rastgele Ev Fotoğrafları</title>
   <style>
     body { 
       font-family: Arial, sans-serif; 
@@ -15,39 +15,36 @@
       height: auto; 
       margin: 1rem 0;
       border: 2px solid #ccc;
+      border-radius: 10px;
     }
     button {
       padding: 0.5rem 1rem;
       font-size: 1rem;
       cursor: pointer;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
-  <h1>Rastgele Hayvan Fotoğrafı</h1>
-  <img id="animalImage" src="" alt="Hayvan Fotoğrafı">
+  <h1>Rastgele Ev Fotoğrafı</h1>
+  <img id="houseImage" src="" alt="Ev Fotoğrafı">
   <br>
-  <button id="newImageBtn">Yeni Hayvan Göster</button>
+  <button id="newImageBtn">Yeni Ev Göster</button>
 
   <script>
-    const imgElement = document.getElementById('animalImage');
+    const imgElement = document.getElementById('houseImage');
     const btn = document.getElementById('newImageBtn');
 
-    function fetchAnimal() {
-      // HTTPS destekleyen API'yi kullanıyoruz
-      fetch('https://shibe.online/api/shibes?count=1')
-        .then(response => response.json())
-        .then(data => {
-          imgElement.src = data[0];
-        })
-        .catch(error => {
-          console.error('Hata:', error);
-          imgElement.alt = "Fotoğraf yüklenemedi.";
-        });
+    function fetchHouse() {
+      // Unsplash API üzerinden rastgele ev fotoğrafı alıyoruz
+      imgElement.src = "https://source.unsplash.com/600x400/?house,home";
     }
 
-    fetchAnimal();
-    btn.addEventListener('click', fetchAnimal);
+    fetchHouse();
+    btn.addEventListener('click', fetchHouse);
   </script>
 </body>
 </html>
