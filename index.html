@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NASA Günün Uzay Fotoğrafı</title>
+  <title>NASA Rastgele Uzay Fotoğrafları</title>
   <style>
     body { 
       font-family: Arial, sans-serif; 
@@ -40,7 +40,7 @@
   </style>
 </head>
 <body>
-  <h1>🚀 NASA Günün Uzay Fotoğrafı 🌌</h1>
+  <h1>🚀 NASA Rastgele Uzay Fotoğrafları 🌌</h1>
   <h2 id="title"></h2>
   <img id="spaceImage" src="" alt="NASA Uzay Fotoğrafı">
   <p id="description"></p>
@@ -54,7 +54,10 @@
     const btn = document.getElementById('newImageBtn');
 
     function fetchSpaceImage() {
-      fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
+      const randomDate = generateRandomDate(); // Rastgele tarih üret
+      const apiUrl = `https://api.nasa.gov/planetary/apod?date=${randomDate}&api_key=DEMO_KEY`;
+
+      fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
           titleElement.textContent = data.title;
@@ -66,6 +69,14 @@
           titleElement.textContent = "Fotoğraf Yüklenemedi";
           descElement.textContent = "NASA API'den veri alınırken hata oluştu.";
         });
+    }
+
+    function generateRandomDate() {
+      const start = new Date(2000, 0, 1); // 2000 yılından başla
+      const end = new Date(); // Bugünün tarihi
+      const randomTime = start.getTime() + Math.random() * (end.getTime() - start.getTime());
+      const randomDate = new Date(randomTime);
+      return randomDate.toISOString().split('T')[0]; // YYYY-MM-DD formatına çevir
     }
 
     fetchSpaceImage();
