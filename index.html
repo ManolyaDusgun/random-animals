@@ -34,7 +34,7 @@
     const btn = document.getElementById('newImageBtn');
 
     function fetchAnimal() {
-      fetch('http://shibe.online/api/shibes?count=1')
+      fetch('https://shibe.online/api/shibes?count=1')
         .then(response => response.json())
         .then(data => {
           imgElement.src = data[0];
