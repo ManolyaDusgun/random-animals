@@ -3,51 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rastgele Hayvan Fotoğrafları</title>
+  <title>NASA Günün Uzay Fotoğrafı</title>
   <style>
     body { 
       font-family: Arial, sans-serif; 
       text-align: center; 
       margin: 2rem;
+      background-color: #0a0a2a;
+      color: white;
     }
     img { 
-      max-width: 100%; 
+      max-width: 90%; 
       height: auto; 
       margin: 1rem 0;
-      border: 2px solid #ccc;
+      border: 2px solid #fff;
+      border-radius: 10px;
     }
     button {
       padding: 0.5rem 1rem;
       font-size: 1rem;
       cursor: pointer;
+      background: #ff9800;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    #title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    #description {
+      font-size: 1rem;
+      max-width: 600px;
+      margin: auto;
     }
   </style>
 </head>
 <body>
-  <h1>Rastgele Hayvan Fotoğrafı</h1>
-  <img id="animalImage" src="" alt="Hayvan Fotoğrafı">
+  <h1>🚀 NASA Günün Uzay Fotoğrafı 🌌</h1>
+  <h2 id="title"></h2>
+  <img id="spaceImage" src="" alt="NASA Uzay Fotoğrafı">
+  <p id="description"></p>
   <br>
-  <button id="newImageBtn">Yeni Hayvan Göster</button>
+  <button id="newImageBtn">Yeni Görüntü Al</button>
 
   <script>
-    const imgElement = document.getElementById('animalImage');
+    const imgElement = document.getElementById('spaceImage');
+    const titleElement = document.getElementById('title');
+    const descElement = document.getElementById('description');
     const btn = document.getElementById('newImageBtn');
 
-    function fetchAnimal() {
-      // HTTPS destekleyen API'yi kullanıyoruz
-      fetch('https://shibe.online/api/shibes?count=1')
+    function fetchSpaceImage() {
+      fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
         .then(response => response.json())
         .then(data => {
-          imgElement.src = data[0];
+          titleElement.textContent = data.title;
+          imgElement.src = data.url;
+          descElement.textContent = data.explanation;
         })
         .catch(error => {
           console.error('Hata:', error);
-          imgElement.alt = "Fotoğraf yüklenemedi.";
+          titleElement.textContent = "Fotoğraf Yüklenemedi";
+          descElement.textContent = "NASA API'den veri alınırken hata oluştu.";
         });
     }
 
-    fetchAnimal();
-    btn.addEventListener('click', fetchAnimal);
+    fetchSpaceImage();
+    btn.addEventListener('click', fetchSpaceImage);
   </script>
 </body>
 </html>
